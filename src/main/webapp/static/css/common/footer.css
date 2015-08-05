@@ -1,0 +1,78 @@
+@charset "utf-8";
+/* 百绿汇首页CSS Document 黄美玲 */
+
+.w160 { width:160px;}
+.w85 { width:85px; }
+.blh_footer1 {height:45px;  width:100%; float:none; margin-left:auto; margin-top:20px; margin-right:auto;  background-color: #999; font-size:16px;}
+.footer1 { height:100%; width:1000px; height:45px; float:none; margin-left:auto; margin-right:auto; cursor: pointer;}
+
+.footer1 ul { float:left; height:45px; width:250px; position: relative;}
+.footer1 ul li i { height:40px; width:40px; display:block; float:left;  margin-left:20px; margin-top:3px; }
+.footer1 ul li p { font-size:12px; line-height:20px; padding-top:10px; clear:both; }
+
+.footer1 b { font-family: "微软雅黑"; font-weight:500; font-size: 18px;}
+
+.footer1_1 i { background: url(../../images/front/bailvhui.png) no-repeat 0px -90px;}
+.footer1_1 b { line-height:45px; color:#FFF; width:185px; float:left; padding-left: 5px; }
+
+.footer1_2 i { background: url(../../images/front/bailvhui.png) no-repeat 0px -130px;}
+.footer1_2 b { line-height:45px; color:#FFF; width:185px; float:left; padding-left: 5px; }
+
+.footer1_3 i { background: url(../../images/front/bailvhui.png) no-repeat -5px -403px;}
+.footer1_3 b { line-height:45px; color:#FFF; width:185px; float:left; padding-left: 5px; }
+
+.footer1_4 i { background: url(../../images/front/bailvhui.png) no-repeat -5px -443px;}
+.footer1_4 b { line-height:45px; color:#FFF; width:185px; float:left; padding-left: 5px; }
+
+.footer2 { height:95px; width:980px; float:none; margin-left:auto; margin-right:auto; font-size:12px; color: #666; padding:5px;}
+.footer2 ul { height:90px; width:224px; cursor: pointer; padding-left:10px; padding-right:10px; border-right: #CCC 1px solid; float:left; }
+.footer2 ul:hover { background-color:#EBFFD7; }
+.footer2 ul li { line-height:18px; width: 220px; text-align:center;}
+.footer2 ul li p { width:220px;font-size:18px; font-family: "微软雅黑"; display:block; float:left; color:#333; line-height:30px;}
+.footer2 a { color:#666; }
+
+.ft_hint { width:990px; height:auto; float:none; margin-left:auto; margin-right:auto; background-color: #EBFFD7; padding-bottom:20px; padding-top:10px;}
+.ft_hint b { width:970px; line-height:30px; font-size:14px; padding-left:10px; display:block; float:left;}
+.ft_hint p { width:950px; font-size:12px; line-height:18px; padding-left:30px; display:block; float:left; }
+.ft_hint span { width:970px; font-size:16px; line-height:30px; display:block; float:left; padding-left:10px; font-weight:500; }
+.ft_hint i{ width:25px; height:23px; display:block; position:relative; top:-23px; background:url(../../images/front/home_po3.png) no-repeat -1px -4px;}
+.ft_hint .ft_hint1{ left:110px;}
+.ft_hint .ft_hint2{ left:360px;}
+.ft_hint .ft_hint3{ left:600px;}
+.ft_hint .ft_hint4{ left:850px;}
+
+
+
+
+
+
+/*.footer3_1 .mic i { background: url(../../images/front/bailvhui.png) no-repeat -163px -125px; }
+.footer3_1 . i { background: url(../../images/front/bailvhui.png) no-repeat -163px -170px; }
+*/
+
+
+
+/**footer*/
+.footer3 { height:200px; width:100%; line-height:45px;}
+.footer3_1 { height:50px; width:400px; }
+.footer3_1, .footer3_4{margin:0 auto;}
+.footer3_1 b { padding-top:5px; color: #333;font-family: "微软雅黑";font-weight: 200; float:left;} 
+.footer3 i { height:50px; width:115px; float:left;}
+.footer3_1 .cmcc{ background: url(../../images/front/bailvhui.png) no-repeat -163px -220px;}
+.footer3_1 .chinanet{  background: url(../../images/front/bailvhui.png) no-repeat -163px -80px; }
+
+.footer3 p{ text-align:center; line-height:24px; color:#999; font-size:12px;}
+
+.footer3_4 { width:360px; height:40px; }
+.footer3_4 .kxid {background: url(../../images/front/bailvhui.png) no-repeat -50px -90px;}
+.footer3_4 .cx {background: url(../../images/front/bailvhui.png) no-repeat -50px -130px; }
+.footer3_4 .wsjy {background: url(../../images/front/bailvhui.png) no-repeat -50px -172px; }
+.footer3_4 i{height:36px;}
+
+.footer3_1 i:hover{ filter:alpha(opacity=60); opacity:0.6;}
+
+
+
+
+
+

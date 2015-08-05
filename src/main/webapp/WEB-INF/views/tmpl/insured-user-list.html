@@ -1,0 +1,56 @@
+<script id="insured-user-list-template" type="text/x-handlebars-template">
+    <tr>
+        <th class="active">姓名</th>
+        <th class="active">证件类型</th>
+        <th class="active">证件号码</th>
+        <th class="active">职业类型</th>
+        <th class="active">生日</th>
+    </tr>
+    {{#each insuredUserList}}
+        <tr>
+            <td>{{name}}</td>
+            <td value="{{identityType}}">
+                {{#ifvalue identityType value=1}}
+                    身份证
+                {{/ifvalue}}
+                {{#ifvalue identityType value=2}}
+                    护照
+                {{/ifvalue}}
+                {{#ifvalue identityType value=3}}
+                    港澳通行证
+                {{/ifvalue}}
+                {{#ifvalue identityType value=4}}
+                    台湾通行证
+                {{/ifvalue}}
+                {{#ifvalue identityType value=5}}
+                    其他
+                {{/ifvalue}}
+            </td>                   
+            <td>{{identity}}</td>
+            <td value="{{occupationType}}">
+                {{#ifvalue occupationType value=1}}
+                    一类
+                {{/ifvalue}}
+                {{#ifvalue occupationType value=2}}
+                    二类
+                {{/ifvalue}}
+                {{#ifvalue occupationType value=3}}
+                    三类
+                {{/ifvalue}}
+                {{#ifvalue occupationType value=4}}
+                    四类
+                {{/ifvalue}}
+                {{#ifvalue occupationType value=5}}
+                    五类
+                {{/ifvalue}}
+                {{#ifvalue occupationType value=6}}
+                    六类
+                {{/ifvalue}}
+                {{#ifvalue occupationType value=7}}
+                    七类
+                {{/ifvalue}}
+            </td>
+            <td>{{birthday}}</td>
+        </tr>
+    {{/each}}     
+</script>

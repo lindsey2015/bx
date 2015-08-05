@@ -1,0 +1,65 @@
+@charset "utf-8";
+/* 百绿汇首页CSS Document 黄美玲 */
+
+/*左侧导航*/
+.header_side_menu { height: 100%; width: 37px; position: fixed; top: 0; left: 0; background:none repeat scroll 0 0 #E1E1E1; }
+.header_side_menu li { width:37px; height:50px; margin-bottom:7px; float:left; font-size:12px; text-align:center;line-height:10px; }
+.header_side_menu ul li a { color:#000; font:"Microsoft Yahei","微软雅黑","宋体"; }
+.header_side_menu ul li p a:hover{ color:#76CB1C; text-decoration:underline;}
+.header_side_menu ul li i { width: 25px; height: 23px; margin:5px; margin-left:6px;}
+.header_side_menu ul .help i{ margin-left:7px;}
+.header_side_menu li:hover { background-color:#ededed; cursor:pointer; }
+/*帮助选择框*/
+.header_side_menu ul li span{ width:150px; height:120px; z-index:10000; -moz-box-shadow:0px -1px 0px rgb(255, 255, 255) inset, 0px 1px 4px rgba(0, 0, 0, 0.3); box-shadow:0px -1px 0px rgb(255, 255, 255) inset, 0px 1px 4px rgba(0, 0, 0, 0.3); display:block; display:none; position:relative; top:-120px; left:37px; background-color:#fafafa; border:1px solid #ccc;}
+.header_side_menu ul li span .help_select_icon{ width:10px; height:15px; display:block; position:relative; top:90px; left:-17px; background: url(../../images/front/home_po11.png) no-repeat -7px -37px;}
+.header_side_menu ul li span p{ width:120px; height:auto; line-height:20px; margin-top:15px; text-align:left; text-indent:25px;}
+.header_side_menu ul li span p a{ margin-left:5px;}
+.header_side_menu ul li span b{ width:100%; height:30px; color:#444; background-color:#E1E1E1; line-height:30px; text-align:left; text-indent:10px; margin-top:-25px;}
+
+.menu1 { position:absolute; top:16%; left:0px; }
+.sy i { background: url(../../images/front/blh_left.png) no-repeat 0px 0px; }
+.rc i { background: url(../../images/front/blh_left.png) no-repeat 0px -24px; }
+.pc i { background: url(../../images/front/blh_left.png) no-repeat 0px -48px; }
+.hs i { background: url(../../images/front/blh_left.png) no-repeat 0px -73px; }
+
+.menu2 { position:absolute; bottom:40px; left:0px; }
+.share i { background: url(../../images/front/blh_left.png) no-repeat 0px -115px; }
+.sm i { background: url(../../images/front/blh_left.png) no-repeat 0px -95px; }
+.help i { background: url(../../images/front/blh_left.png) no-repeat -2px -143px; }
+/*.header_side_menu ul li b { width:9px; height:9px; background: url(../../images/front/bailvhui.png) no-repeat -60px -80px; position:absolute; right:0px; bottom:0px; }*/
+/*
+.header_side_menu ul .sy:hover i {background: url(../../images/front/blh_left.png) no-repeat -26px 0px;}
+.header_side_menu ul .rc:hover i {background: url(../../images/front/blh_left.png) no-repeat -26px -24px;}
+.header_side_menu ul .pc:hover i {background: url(../../images/front/blh_left.png) no-repeat -26px -48px;}
+.header_side_menu ul .hs:hover i {background: url(../../images/front/blh_left.png) no-repeat -26px -73px;}
+.header_side_menu ul .share:hover i {background: url(../../images/front/blh_left.png) no-repeat -26px -115px;}
+.header_side_menu ul .sm:hover i {background: url(../../images/front/blh_left.png) no-repeat -26px -95px;}
+.header_side_menu ul .help:hover i { background: url(../../images/front/blh_left.png) no-repeat -29px -143px;}
+*/
+
+
+/*右侧返回头部*/
+.elevator { width:50px; height:150px; position:fixed; right:10px; bottom:170px;  }
+.h60{height: 40px; width:50px;}
+.elevator1 .backtotop { width:40px; height:38px; background-color:#333332; border-radius:2px; cursor: pointer; float:left; filter:alpha(opacity=70); opacity:0.7;}
+.elevator1 .qrcode { width:40px;  height:38px; background-color:#333332; border-radius:2px; cursor: pointer; float:left; margin-bottom:5px;filter:alpha(opacity=70); opacity:0.7; }
+.elevator1 .backtotop:hover { filter:alpha(opacity=80); opacity:0.8;}
+.elevator1 .qrcode:hover {filter:alpha(opacity=80); opacity:0.8;}
+.elevator1 div i { width:33px; margin-left:4px; display:block; margin-top:4px;}
+.backtotop i { height:30px; background: url(../../images/front/bailvhui.png) no-repeat -65px -1px; margin-top: 8px; }
+.qrcode i { height:30px; background: url(../../images/front/bailvhui.png) no-repeat -65px -29px; margin-top: 5px; }
+.elevator1 .qrcode .join{ height:30px; width:30px; padding-left:8px; font-family:"微软雅黑"; font-size:10px; cursor: pointer;background:none; margin-top:3px; line-height:15px; color:#fff;}
+
+/*鼠标经过时显示*/
+.elevator2 { display:none; z-index:10000; width:170px; height:200px; position:absolute; left:-176px; bottom:70px; border-radius:2px; background-color:#d2e2b6; font:18px; }
+.elevator2 li { width:170px; text-align:center; }
+.elevator2 li img { margin:6px; display:block; }
+.elevator2 .arr { width:6px; height:15px; position:absolute; right:-6px; bottom:13px; }
+.elevator2 .arr b { width:6px; height:15px; display:block; background: url(../../images/front/bailvhui.png) no-repeat -100px -40px; }
+/*申请加盟*/
+.elevator21 { display:none; z-index:10000; width:170px; height:100px; background-color:#fafafa; position:absolute; left:-177px; bottom:116px; border-radius:2px; border:1px solid #ccc; font:18px; }
+.elevator21 li { width:170px; display:block; line-height:27px; }
+.elevator21 li a{ font-size:12px; line-height:25px; color:#666; margin-left:5px;}
+.elevator21 li a:hover{ text-decoration:underline; color:#76CB1C;}
+.elevator21 .arr { width:6px; height:15px; position:absolute; right:-6px; bottom:13px; }
+.elevator21 .arr b { width:6px; height:20px; display:block; background: url(../../images/front/home_po2.png) no-repeat -9px -3px; }

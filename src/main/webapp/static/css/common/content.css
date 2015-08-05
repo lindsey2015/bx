@@ -1,0 +1,121 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+body, div, dl, dt, dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,fieldset,input,textarea,p,blockquoteth,td,img{ margin:0;padding:0;}
+table{ border-collapse:collapse;border-spacing:0;}
+fieldset,img {border:none; cursor:pointer;}
+ol,ul{ display:block;}
+ul li,ol li {list-style:none;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+a{ text-decoration:none; cursor:pointer;}
+div a:hover{color:#2881f6; text-decoration:underline;}
+img:hover{filter:alpha(opacity=60); opacity:0.6;}
+/****************************************middle***********************************************************************/
+.middle{ width:100%}
+.middle_content{width:935px; margin:0 auto;}
+/***************************************measure*************************************************/
+.measure{ width:935px; height:125px; float:left; }
+.measure_left{width:700px;  margin-left:15px; _margin-left:7px;}
+.measure p{  width:58px; height:36px; float:left; line-height:36px; border-bottom:1px solid #d7d7d7; font-weight:bold;}
+.measure_left span{width:642px; height:36px; float:right; line-height:36px;border-bottom:1px solid #d7d7d7; color:#888485; font-size:10px; }
+.measure ul{ width:700px; float:left;}
+.measure ul li{ width:170px; height:40px; line-height:40px; float:left;}
+.measure_right{ width:217px;float:left;}
+.measure_right h1{height:20px; float:left; margin:1px 2px 5px 60px; color:#f00a14; font-size:16px; font-weight:bold;display:inline;}
+.button{ width:97px; height:26px; float:left; background:url(../../images/common/toubao/button.png) repeat-x; border:1px solid #973109; margin:0 61px 0 59px; border-radius:2px;display:inline;}
+.button a{ color:#ffe5ff; width:97px;text-align:center; line-height:26px; float:left; font-size:14px;}
+/***************************************inf**************************************************/
+.inf{ width:935px;float:left;border:1px solid #d9d9d9; margin-top:15px;}
+.inf_top{ width:935px; height:36px; float:left; background:url(../../images/common/toubao/back.png) repeat-x; }
+.inf_top p{ height:36px; line-height:36px; float:left; margin:0 6px 0 20px; display:inline;font-weight:bold;}
+.inf_top span{height:36px; color:#65696c; float:left; font-size:10px; line-height:36px;}
+.que{ margin:10px 0 0 0; float:left;display:inline; width:16px; background:url(../../images/common/toubao/img.png) -77px -6px no-repeat;}
+.man{ width:908px; height:26px; float:left; background-color:#f7f7f7; margin:20px 0 0 20px;display:inline;}
+.man p{ height:26px; line-height:26px; float:left; margin-left:88px;_margin-left:44px;}
+.red{ margin:10px 3px 0 88px; float:left;display:inline;}
+.man ul{ width:408px; height:26px; line-height:26px; float:left;}
+.man ul li{ width:102px; float:left;  }
+.circle{ float:left; margin:7px 8px 0 0;display:inline; }
+.tri{ width:12px; height:12px; background:url(../../images/common/toubao/img.png) -79px -40px no-repeat;float:left; margin:6px 6px 0 0;}
+.man h1{ width:300px; height:26px; line-height:26px; float:left; }
+.man h1 span{ color:#9b4141; font-weight:bold;}
+.man_button1{ width:112px; height:26px; float:left; margin:15px 15px 25px 220px; background-color:#fdfae7;display:inline;}
+.man_button1 a{ width:112px; text-align:center; float:left;color:#555347; line-height:26px; border:1px solid #dfd8bb; font-weight:bold;}
+.man_button2{ width:112px; height:26px; float:left; margin:15px 15px 25px 0; background-color:#f3ffeb;display:inline;}
+.man_button2 a{ width:112px; text-align:center; float:left;color:#555347; line-height:26px; border:1px solid #a2b69a; font-weight:bold;}
+h2{ width:133px; height:68px; line-height:68px; float:left; color:#707271; }
+h3{ width:100px; height:68px; line-height:68px; float:left;}
+h3 a{ color:#283838;}
+.name{ width:908px; height:36px; float:left; background-color:#f3f3f3; margin:0 0 10px 20px;display:inline; }
+.name ul{ width:908px; height:36px; float:left; }
+.name ul li{ width:119px; height:36px; line-height:36px; float:left; margin-left:10px;  _margin-left:5px;  }
+.cost{ width:908px; border-top:1px dashed #cecece; float:left; margin-left:20px;_margin-left:10px;}
+.cost p{  height:58px; line-height:58px;float:left; color:#575757; margin-left:594px;_margin-left:297px;}
+.cost span{ height:58px; line-height:58px; color:#e70000; font-size:14px; font-weight:bold;}
+.cost_button{ width:103px; height:22px; float:right; margin:18px 0 0 7px;display:inline; border:1px solid #d9dadc;}
+.plus{ float:left; margin:6px 7px 0 7px; background:url(../../images/common/toubao/img.png) -80px -66px no-repeat; width:10px; height:10px;}
+.cost_button a{ color:#606060; float:left; line-height:22px;}
+.inf h5{ width:800px; min-height:56px; height:auto ;  float:left; margin:17px 0 0 55px; color:#68676c;display:inline;}
+.man_search{ width:948px; height:56px; float:left;}
+.man_search p{ width:96px; height:29px; margin:27px 18px 0 84px; float:left;display:inline; }
+.man_search input{ width:300px; height:24px; float:left; margin-top:21px;}
+.mo_search{ width:948px; height:56px; float:left;}
+.mo_search p{ width:78px; height:29px; margin:8px 0 0 120px; float:left;display:inline; }
+.mo_search input{ width:300px; height:24px; float:left;}
+.time .red{ margin:29px 5px 0 88px; float:left;display:inline;}
+.time p{ width:94px; height:66px; float:left; line-height:66px; margin-left:88px;_margin-left:44px; }
+.inf_top h1{ width:400px; height:26px;float:left; color:#8b8b8b; margin:10px 0 0 9px;display:inline;}
+.person{ width:800px; float:left; margin:17px 0 0 96px;display:inline;}
+.person p{ float:left; line-height:28px;}
+.person a{ float:left; line-height:28px;}
+.person input[type="text"]{ width:300px; float:left;}
+.date{ width:800px; float:left; margin:27px 0 10px 96px;display:inline;}
+.date p{ float:left; line-height:28px;}
+.date input{ width:100px; float:left;}
+.date img{margin-left:5px; _margin-left:2.5px; float:left;}
+.kind{ width:800px; float:left;margin:27px 0 10px 107px;display:inline;}
+.kind p{  float:left;line-height:28px;}
+.kind input{ width:300px; float:left;}
+.kin{ width:800px; float:left; margin:27px 0 0 107px;display:inline;}
+.kin p{ float:left;line-height:28px;}
+.kin input{ width:150px; float:left;}
+.sex{ width:800px; float:left;margin:27px 0 0 132px;display:inline;}
+.sex p{float:left;line-height:20px; }
+.sex input{ width:18px; height:10px; float:left; }
+.male{ line-height:20px; float:left;}
+.detail{ float:left; padding-bottom:30px;}
+.code{ float:left; }
+.tim{ float:left; margin-top:20px;}
+.man input{ width:20px; height:16px; float:left;}
+.human{ line-height:26px;}
+.detail span{ color:#8e1026;}
+.man span{ color:#8e1026;}
+.time span{ color:#8e1026;}
+/*******************************************passage***************************************************/
+.passage h1{ width:900px;float:left;padding:24px 0 15px 33px; font-size:14px;}
+.passage ul{ width:990px; float:left;}
+.passage ul li{ width:990px; line-height:25px; margin:0 0 0 20px; float:left; background:url(../../images/common/toubao/img.png) -213px 0 no-repeat; display:inline; background-position:2px 0 0 5px; padding: 0 0 0 17px;}
+.passage  a{ color:#4e7eac;}  
+.on{ width:900px; height:53px; float:left; margin:12px 0 0 33px; display:inline;}
+.on input{  float:left; width:12px; height:12px;}
+.on p{ margin:0 0 0 5px; float:left;  display:inline;}
+.on span{ color:#8e1026;}
+/*******************************************bottom********************************************************/
+.tjbd-button{ width:97px; height:26px; float:left; background:url(../../images/common/toubao/button.png) repeat-x; border:1px solid #973109; margin:0 0 0 39px; border-radius:2px;display:inline;}
+.tjbd-button a{ color:#ffe5ff; width:97px;text-align:center; line-height:26px; float:left; font-size:14px;}
+
+input.error, div.error {
+    border-color: red;
+    border-style: solid;
+    border-width: 2px;
+}
+
+.check-wrap {
+    width: 200px;
+    height: 25px;
+    margin-bottom: 5px;
+}
+
+#excelAddr {
+    width: 186px;
+}
