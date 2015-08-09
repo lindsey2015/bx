@@ -11,9 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-/**
- * Created by lelaw on 6/13/2015.
- */
 @Service("insuredUserServiceImpl")
 @Transactional
 public class InsuredUserServiceImpl implements InsuredUserService {

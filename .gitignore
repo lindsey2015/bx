@@ -135,3 +135,8 @@ keystore.jks
 target
 classes
 #lib
+
+### tomcat ###
+temp
+logs
+webapps

@@ -6,9 +6,6 @@ import cn.edu.xmut.modules.insured.bean.InsuredUser;
 
 import java.util.List;
 
-/**
- * Created by lelaw on 6/13/2015.
- */
 public interface InsuredUserService {
     // 自动生成区域
 

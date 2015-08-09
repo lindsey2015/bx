@@ -143,7 +143,7 @@
                prefix="localhost_access_log." suffix=".txt" pattern="common" resolveHosts="false"/>
         -->
         
-        <Context path="/bx" reloadable="false" docBase="D:\source\bx\bx\src\main\webapp" workDir="D:\source\bx\apache-tomcat-6.0.43\work" swallowOutput="true">
+        <Context path="/bx" reloadable="true" docBase="D:\source\bx\bx\src\main\webapp" workDir="work" swallowOutput="true">
           <Loader loaderClass="com.tml.tracking.classloader.BridgedClassLoader"/>
         </Context>
         

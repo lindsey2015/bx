@@ -20,12 +20,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by lelaw on 6/13/2015.
- */
 public class ExcelUtils {
-    private static final Logger LOG = LoggerFactory
-            .getLogger(ExcelUtils.class);
+    private static final Logger LOG = LoggerFactory.getLogger(ExcelUtils.class);
 
     public static List<InsuredUser> excel2InsuredUserList(InputStream inputStream) {
         Workbook workbook = null;
@@ -95,6 +91,7 @@ public class ExcelUtils {
                 ws.addCell(new Label(colIndex++, 0, "产品名称"));
                 ws.addCell(new Label(colIndex++, 0, "年龄段"));
                 ws.addCell(new Label(colIndex++, 0, "参保人数"));
+                ws.addCell(new Label(colIndex++, 0, "投保日期"));
                 ws.addCell(new Label(colIndex++, 0, "起保日期"));
                 ws.addCell(new Label(colIndex++, 0, "保障期限"));
                 ws.addCell(new Label(colIndex++, 0, "保险单号"));
@@ -113,6 +110,7 @@ public class ExcelUtils {
                     ws.addCell(new Label(colIndex++, i, bdInfo.getProduct().getName()));
                     ws.addCell(new Label(colIndex++, i, bdInfo.getAgeGroup()));
                     ws.addCell(new Number(colIndex++, i, bdInfo.getNums()));
+                    ws.addCell(new Label(colIndex++, i, bdInfo.getCreateTime()));
                     ws.addCell(new Label(colIndex++, i, bdInfo.getStartDay()));
                     ws.addCell(new Number(colIndex++, i, bdInfo.getDays()));
                     ws.addCell(new Label(colIndex++, i, bdInfo.getTbNo()));

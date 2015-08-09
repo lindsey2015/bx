@@ -1,5 +1,7 @@
 package cn.edu.xmut.modules.bdinfo.service.impl;
 
+import cn.edu.xmut.core.utils.StringUtils;
+import cn.edu.xmut.modules.bdinfo.bean.SearchCriteria;
 import cn.edu.xmut.modules.catagory.bean.Catagory;
 import cn.edu.xmut.modules.catagory.service.CatagoryService;
 import cn.edu.xmut.modules.product.bean.Product;
@@ -23,6 +25,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -173,6 +176,59 @@ public class BdInfoServiceImpl implements BdInfoService {
                                     String string) {
         String sql = "select * from TB_BD_INFO where " + name + " >= ? and " + name2 + " <= ? and " + name3 + " =? ORDER BY " + string;
         return bdInfoDao.findBySql(sql, BdInfo.class, startTime, endTime, status);
+    }
+
+    @Override
+    public List<BdInfo> listBySearchCriteria(SearchCriteria searchCriteria) {
+        List<Object> params = new ArrayList<Object>();
+        String sql = generateSqlBySearchCriteria(searchCriteria, params);
+        return bdInfoDao.findBySql(sql, BdInfo.class, params.toArray());
+    }
+
+    @Override
+    public Page<BdInfo> findPageBySearchCriteria(SearchCriteria searchCriteria) {
+        List<Object> params = new ArrayList<Object>();
+        String sql = generateSqlBySearchCriteria(searchCriteria, params);
+
+        return bdInfoDao.findBySql(searchCriteria.getPageable(), sql, BdInfo.class, params.toArray());
+
+    }
+
+    private String generateSqlBySearchCriteria(SearchCriteria searchCriteria, List<Object> params) {
+        StringBuilder condition = new StringBuilder();
+        condition.append("where status = ?");
+        params.add(searchCriteria.getStatus());
+
+        if (StringUtils.isNotBlank(searchCriteria.getStartDate())) {
+            condition.append(" and create_time >= ?");
+            params.add(searchCriteria.getStartDate());
+        }
+        if (StringUtils.isNotBlank(searchCriteria.getEndDate())) {
+            condition.append(" and create_time <= ?");
+            params.add(searchCriteria.getEndDate());
+        }
+        if (StringUtils.isNotBlank(searchCriteria.getKeyword())) {
+            condition.append(" and tb_no like ?");
+            params.add(String.format("%%%s%%", searchCriteria.getKeyword()));
+        }
+        if (StringUtils.isNotBlank(searchCriteria.getUserId())) {
+            condition.append(" and user_id = ?");
+            params.add(searchCriteria.getUserId());
+        }
+        if (CollectionUtils.isNotEmpty(searchCriteria.getProductIds())) {
+            condition.append(" and product_id in (");
+            for (String productId : searchCriteria.getProductIds()) {
+                condition.append("?,");
+                params.add(productId);
+            }
+            // remove the last ","
+            condition.deleteCharAt(condition.length() - 1);
+            condition.append(")");
+        }
+
+        return "select * from TB_BD_INFO "
+                + condition.toString()
+                + " order by create_time desc";
     }
 
     @Override

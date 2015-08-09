@@ -1,31 +1,16 @@
 package cn.edu.xmut.web.bdinfo;
 
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-
-import cn.edu.xmut.core.utils.ExcelUtils;
-
-import cn.edu.xmut.core.utils.MailUtility;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-
 import cn.edu.xmut.core.filter.Filter;
 import cn.edu.xmut.core.filter.PermissionTypeEnum;
 import cn.edu.xmut.core.persistence.Page;
 import cn.edu.xmut.core.persistence.Pageable;
 import cn.edu.xmut.core.utils.DateUtils;
+import cn.edu.xmut.core.utils.ExcelUtils;
+import cn.edu.xmut.core.utils.MailUtility;
 import cn.edu.xmut.core.utils.StringUtils;
 import cn.edu.xmut.core.web.BaseController;
 import cn.edu.xmut.modules.bdinfo.bean.BdInfo;
+import cn.edu.xmut.modules.bdinfo.bean.SearchCriteria;
 import cn.edu.xmut.modules.bdinfo.service.BdInfoService;
 import cn.edu.xmut.modules.bzdate.service.BzDateService;
 import cn.edu.xmut.modules.catagory.service.CatagoryService;
@@ -36,6 +21,16 @@ import cn.edu.xmut.modules.userproduct.service.UserProductService;
 import cn.edu.xmut.utils.DateTool;
 import cn.edu.xmut.utils.JsonTool;
 import cn.edu.xmut.utils.UtilCtrl;
+import com.alibaba.fastjson.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @描述 保单信息Controller
@@ -66,10 +61,11 @@ public class BdInfoController extends BaseController {
         String targetFile = UtilCtrl.getSession().getServletContext().getRealPath("upload");
         String file = targetFile + "\\" + DateTool.getCurrDate() + ".xls";
 
-        List<BdInfo> list = bdInfoService.listOrderBy(BdInfo.FieldOfBdInfo.START_DAY.name(), startTime,
-                BdInfo.FieldOfBdInfo.START_DAY.name(), endTime,
-                BdInfo.FieldOfBdInfo.STATUS.name(), status,
-                BdInfo.FieldOfBdInfo.CREATE_TIME.name() + " DESC");
+        User user = (User) UtilCtrl.currentUser(User.class);
+        SearchCriteria searchCriteria = buildSearchCriteria(null, status,
+                null, startTime, endTime, user);
+
+        List<BdInfo> list = bdInfoService.listBySearchCriteria(searchCriteria);
 
         ExcelUtils.exportToExcel(file, list);
         return JsonTool.genSuccessMsg("upload/" + DateTool.getCurrDate() + ".xls");
@@ -115,57 +111,47 @@ public class BdInfoController extends BaseController {
     @RequestMapping("/pageByStatusSearchParam")
     public
     @ResponseBody
-    JSONObject pageByStatusSearchParam(Pageable pageable, int status, String searchParam, String startTime, String endTime) {
-        Page<BdInfo> list = null;
-        if (StringUtils.isNotBlank(searchParam)) {
-            list = bdInfoService.findPageByTwoFieldsLike(pageable,
-                    BdInfo.FieldOfBdInfo.STATUS.name(), status,
-                    BdInfo.FieldOfBdInfo.TB_NO.name(), searchParam);
-        } else if (StringUtils.isNotBlank(startTime) && StringUtils.isNotBlank(endTime)) {
-            list = bdInfoService.findPageByTwoFields(pageable,
-                    BdInfo.FieldOfBdInfo.STATUS.name(), status,
-                    BdInfo.FieldOfBdInfo.START_DAY.name(), startTime,
-                    BdInfo.FieldOfBdInfo.START_DAY.name(), endTime);
-        } else {
-            list = bdInfoService.findPageByOneFieldOrderBy(pageable,
-                    BdInfo.FieldOfBdInfo.STATUS.name(), status,
-                    BdInfo.FieldOfBdInfo.CREATE_TIME.name() + " desc");
-        }
-        JSONObject json = new JSONObject();
-        json.put("data", list.getContent());
-        JSONArray array = json.getJSONArray("data");
-
-        List<BdInfo> parse = JSON.parseArray(array.toJSONString(), BdInfo.class);
+    JSONObject pageByStatusSearchParam(Pageable pageable, int status,
+                                       String searchParam, String startTime, String endTime) {
         User user = (User) UtilCtrl.currentUser(User.class);
+        SearchCriteria searchCriteria = buildSearchCriteria(pageable, status,
+                searchParam, startTime, endTime, user);
+
+        Page<BdInfo> list = bdInfoService.findPageBySearchCriteria(searchCriteria);
+
+        JSONObject json = new JSONObject();
+        json.put("data", list);
         json.put("type", user.getType());
-        if (user.getType() == 3) {
-            List<BdInfo> resultBdInfos = new ArrayList<BdInfo>();
-            List<UserProduct> userProducts = userProductService.findByOneFieldOrderBy(UserProduct.FieldOfUserProduct.USER_ID.name(), user.getId(), " rand()");
+        json.put("searchParam", searchParam);
+        json.put("startTime", startTime);
+        json.put("endTime", endTime);
+        return json;
+    }
+
+    private SearchCriteria buildSearchCriteria(Pageable pageable, int status,
+                                               String searchParam, String startTime, String endTime, User user) {
+        SearchCriteria searchCriteria = new SearchCriteria();
+        searchCriteria.setPageable(pageable);
+        searchCriteria.setStatus(status);
+        searchCriteria.setKeyword(searchParam);
+        searchCriteria.setStartDate(startTime);
+        searchCriteria.setEndDate(endTime);
+
+        if (user.getType() == 2) {
+            // normal user
+            searchCriteria.setUserId(user.getId());
+        } else if (user.getType() == 3) {
+            // carrier user
+            List<UserProduct> userProducts = userProductService.findByOneFieldOrderBy(
+                    UserProduct.FieldOfUserProduct.USER_ID.name(), user.getId(),
+                    " rand()");
+            List<String> productIds = new ArrayList<String>();
             for (UserProduct userProduct : userProducts) {
-                for (BdInfo bdinfo : parse) {
-                    if (bdinfo.getProduct().getId().equals(userProduct.getProductId())) {
-                        resultBdInfos.add(bdinfo);
-                    }
-                }
+                productIds.add(userProduct.getProductId());
             }
-            Page<BdInfo> dics = new Page<BdInfo>(resultBdInfos, resultBdInfos.size(), pageable);
-            json.put("data", dics);
-            return json;
-        } else if (user.getType() == 2) {
-            List<BdInfo> resultBdInfos = new ArrayList<BdInfo>();
-            for (BdInfo bdInfo : parse) {
-                if (user.getId().equals(bdInfo.getUser().getId())) {
-                    resultBdInfos.add(bdInfo);
-                }
-            }
-            Page<BdInfo> dics = new Page<BdInfo>(resultBdInfos, resultBdInfos.size(), pageable);
-            json.put("data", dics);
-            return json;
-        } else {
-            Page<BdInfo> dics = new Page<BdInfo>(parse, list.getTotal(), pageable);
-            json.put("data", dics);
-            return json;
+            searchCriteria.setProductIds(productIds);
         }
+        return searchCriteria;
     }
 
     @RequestMapping("/getById")

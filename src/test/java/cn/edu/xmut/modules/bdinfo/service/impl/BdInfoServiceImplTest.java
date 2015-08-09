@@ -1,8 +1,12 @@
 package cn.edu.xmut.modules.bdinfo.service.impl;
 
+import cn.edu.xmut.core.persistence.Page;
+import cn.edu.xmut.core.persistence.Pageable;
 import cn.edu.xmut.modules.bdinfo.bean.BdInfo;
+import cn.edu.xmut.modules.bdinfo.bean.SearchCriteria;
 import cn.edu.xmut.modules.bdinfo.service.BdInfoService;
 import cn.edu.xmut.modules.insured.bean.InsuredUser;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +15,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
 
@@ -56,5 +61,45 @@ public class BdInfoServiceImplTest {
     public void testFindById() {
         BdInfo bdInfo = bdInfoService.findById("402881e84e204283014e209d879c0000");
         System.out.println(bdInfo.getInsuredUserList().size());
+    }
+
+    @Test
+    public void testFindPageBySearchCriteria4CarrierUser() {
+        SearchCriteria searchCriteria = new SearchCriteria();
+        searchCriteria.setStatus(3);
+        searchCriteria.setStartDate("2015-05-01");
+        searchCriteria.setEndDate("2015-08-28");
+        String[] productIds = {"f89957fc4d66e1d1014d98d30835000c", "f89957fc4d66e1d1014d6b3f138a0002"};
+        searchCriteria.setProductIds(Arrays.asList(productIds));
+        Pageable pageable = new Pageable();
+        pageable.setPageNumber(1);
+        pageable.setPageSize(10);
+        searchCriteria.setPageable(pageable);
+
+        Page<BdInfo> result = bdInfoService.findPageBySearchCriteria(searchCriteria);
+        Assert.assertNotNull(result);
+        Assert.assertEquals(156, result.getTotal());
+    }
+
+    @Test
+    public void testFindPageBySearchCriteria4NormalUser() {
+        SearchCriteria searchCriteria = new SearchCriteria();
+        searchCriteria.setStatus(3);
+        searchCriteria.setStartDate("2015-05-01");
+        searchCriteria.setEndDate("2015-08-28");
+        searchCriteria.setUserId("5746353");
+        Pageable pageable = new Pageable();
+        pageable.setPageNumber(1);
+        pageable.setPageSize(10);
+        searchCriteria.setPageable(pageable);
+
+        Page<BdInfo> result = bdInfoService.findPageBySearchCriteria(searchCriteria);
+        Assert.assertNotNull(result);
+    }
+
+    @Test
+    public void testStringFormat() {
+        String s = String.format("%%%s%%", "test");
+        Assert.assertEquals("%test%", s);
     }
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import cn.edu.xmut.core.persistence.Page;
 import cn.edu.xmut.core.persistence.Pageable;
 import cn.edu.xmut.modules.bdinfo.bean.BdInfo;
+import cn.edu.xmut.modules.bdinfo.bean.SearchCriteria;
 import cn.edu.xmut.web.bdinfo.BdInfoController;
 
 /**
@@ -178,6 +179,8 @@ public interface BdInfoService{
 			String name2, String endTime, String name3, int status,
 			String string);
 
+    public List<BdInfo> listBySearchCriteria(SearchCriteria searchCriteria);
+
     public double getActualTotalFee(BdInfo bdInfo);
 
     String generateBdNumber(BdInfo bdInfo);
@@ -185,6 +188,8 @@ public interface BdInfoService{
     String generateTbNumber(BdInfo bdInfo);
 
     int getSequence();
+
+    Page<BdInfo> findPageBySearchCriteria(SearchCriteria searchCriteria);
 
     // 用户自定义结束，请不要修改以下内容
 }

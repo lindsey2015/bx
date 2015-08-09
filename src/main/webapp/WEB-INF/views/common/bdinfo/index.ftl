@@ -39,7 +39,7 @@
 								    <form class="form-search-bdno" method="post" action="common/bdinfo.jhtml">
 										<input type="hidden" name="status" <#if RequestParameters.status?exists> value="${RequestParameters.status}" </#if>>
 										<span class="input-icon">
-											<input type="text" placeholder="搜投保单号" class="nav-search-input" name="searchParam" autocomplete="off" />
+											<input type="text" placeholder="搜投保单号" class="nav-search-input" name="searchParam" value="${bdinfos.data.searchParam!}" autocomplete="off" />
 											<i class="icon-search nav-search-icon"></i>
 										</span>
 										<button id="search-btn-bdno" type="button" class="btn btn-default btn-xs">搜索</button>
@@ -51,11 +51,11 @@
 						    		<form class="form-search-day" method="post" action="common/bdinfo.jhtml">
 										<input type="hidden" name="status" <#if RequestParameters.status?exists> value="${RequestParameters.status}" </#if>>
 										<span class="input-icon">
-											<input type="text" placeholder="最小投保日期" class="nav-search-input" id="startTime"  name="startTime"  autocomplete="off" />
+											<input type="text" placeholder="开始投保日期" class="nav-search-input" id="startTime"  name="startTime" value="${bdinfos.data.startTime!}" autocomplete="off" />
 											<img src="static/plug/My97DatePicker/skin/datePicker.gif" onClick="WdatePicker({skin:'whyGreen',el:'startTime'})">
 										</span>
 										<span class="input-icon">
-											<input type="text" placeholder="最大投保日期" class="nav-search-input" id="endTime" name="endTime"  autocomplete="off" />
+											<input type="text" placeholder="结束投保日期" class="nav-search-input" id="endTime" name="endTime" value="${bdinfos.data.endTime!}" autocomplete="off" />
 											<img src="static/plug/My97DatePicker/skin/datePicker.gif" onClick="WdatePicker({skin:'whyGreen',el:'endTime'})">
 										</span>
 										<button id="search-btn-day" type="button" class="btn btn-default btn-xs">搜索</button>
@@ -78,6 +78,7 @@
 											</#if>
 											<td class="active">投保人姓名</td>
 											<td class="active">产品名称</td>
+											<td class="active">投保日期</td>  
 											<td class="active">起保日期</td>  
 											<td class="active">保险费金额</td>
 											<td class="active">保障天数</td>
@@ -96,6 +97,7 @@
 												</#if>
 												<td>${(bdinfo.userInfo.name)!}</td>
 												<td>${(bdinfo.product.name)!}</td>
+												<td>${bdinfo.createTime!}</td>
 												<td>${bdinfo.startDay}</td>
 												<td>${bdinfo.total}</td>
 												<td>${bdinfo.days}</td>
@@ -117,8 +119,10 @@
 							           	<#if RequestParameters.status?exists>
 							        		<input type="hidden" value="${RequestParameters.status}" name="status"/>
 						    		    </#if>
-										<#assign page = bdinfos.data.data>
-										DEBUG: ${page.totalPages}
+						    		    <input type="hidden" value="${bdinfos.data.searchParam!}" name="searchParam"/>
+						    		    <input type="hidden" value="${bdinfos.data.startTime!}" name="startTime"/>
+						    		    <input type="hidden" value="${bdinfos.data.endTime!}" name="endTime"/>
+										<#assign page = bdinfos.data.data>										
 								 		<@pagination pageNumber = page.pageNumber totalPages = page.totalPages>
 											<#include "../../common/pagination.ftl">
 										</@pagination>
@@ -139,6 +143,7 @@
  	    	    	area: ['550px' , '500px']
 		 	    });			
 			}
+
 			function update_status_confirm(id,startDay) {
 				$summerLayer({
  	    	    	title:"确认操作",
@@ -146,6 +151,7 @@
  	    	    	area: ['200px' , '130px']
 	 	    	});
 			}
+
 			function update_status(id,startDay) {
 				$post({
 			    	url:'bdinfo/updateStatus.jhtml',
@@ -164,6 +170,7 @@
 			 	});  
 				  
 			}
+
 			function del_bdinfo(id) {
 				$post({
 			    	url:'bdinfo/delbdinfo.jhtml?id='+id,
@@ -178,6 +185,7 @@
 					dataType:"json"
 				}); 
 			}
+
 			function check(id) {
 				$summerLayer({
 	    	    	title:"保单审批",
@@ -185,20 +193,21 @@
 	    	    	area: ['400px' , '230px']
 	 	    	 });
 			}
+
 			$().ready(function() {
 				function checkTime() {				   
 				    var startTime = $("input[name='startTime']").val();
 					var endTime = $("input[name='endTime']").val();
 					if (startTime=="") {
-					   	layer.msg("请选择最小起保日期",3,0);
+					   	layer.msg("请选择开始投保日期",3,0);
 					   	return false;
 					}
 					if (endTime=="") {
-					   	layer.msg("请选择最大起保日期",3,0);
+					   	layer.msg("请选择结束投保日期",3,0);
 					   	return false;
 					}
 					if (startTime>endTime) {
-					  	layer.msg("最小日期不能比最大日期大",3,0);
+					  	layer.msg("开始日期不能大于结束日期",3,0);
 					  	return false;
 					}
 					return true;
@@ -221,16 +230,13 @@
 					    	url: 'bdinfo/export.jhtml',
 					    	data: {startTime:startTime,endTime:endTime,status:status},
 					    	success: function(data) {
-					    	    window.open('${base}'+data);
-					    	    //alert(data);
-					    		//window.location.href=${base}data;				    	
+					    	    window.open('${base}'+data);					    	    	    	
 					    	},
 					    	error: function(data) {
 					    		layer.msg(data,3,0);
 					    	},
 							dataType:"json"
-					 	});  
-				    	// window.open("bdinfor/export.jhtml?&startTime="+$("input[name='startTime']").val()+"&endTime="+$("input[name='endTime']").val()+"&status="+$("input[name='status']").val());
+					 	}); 				    	
 				   }
 			   });
 			})

@@ -7,9 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 import javax.validation.constraints.Size;
 
-/**
- * Created by lelaw on 6/13/2015.
- */
 @Entity
 @Table(name="tb_insured_user")
 public class InsuredUser extends IdEntity {

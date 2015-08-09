@@ -5,9 +5,6 @@ import org.junit.Test;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 
-/**
- * Created by lelaw on 6/13/2015.
- */
 public class ExcelUtilsTest {
     @Test
     public void testExcel2InsuredUserList() {
