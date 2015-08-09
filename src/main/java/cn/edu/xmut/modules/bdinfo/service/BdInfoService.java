@@ -191,5 +191,7 @@ public interface BdInfoService{
 
     Page<BdInfo> findPageBySearchCriteria(SearchCriteria searchCriteria);
 
+    public BdInfo getByBdNoAndInsuredUserName(String bdNo, String bbxrName);
+
     // 用户自定义结束，请不要修改以下内容
 }

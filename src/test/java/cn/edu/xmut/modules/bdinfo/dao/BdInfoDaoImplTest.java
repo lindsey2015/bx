@@ -48,4 +48,9 @@ public class BdInfoDaoImplTest {
         System.out.println(chars.charAt((int)(Math.random() * 26)));
     }
 
+    @Test
+    public void testGetByBdNoBbxrName() {
+        String bdId = bdInfoDao.getIdByBdNoAndInsuredUserName("AXIMC01E0615B000156E", "程海桐");
+        assertNotNull(bdId);
+    }
 }

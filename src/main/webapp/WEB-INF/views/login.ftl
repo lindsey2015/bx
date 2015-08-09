@@ -26,53 +26,49 @@
         <![endif]-->
         <LINK href="static/images/login/User_Login.css" type=text/css rel=stylesheet>
     </head>
-    <body id=userlogin_body>
+    <body id="userlogin_body">
         <form id="form" method="post">
             <input type="hidden" <#if RequestParameters.from?exists> value="${RequestParameters.from}" </#if> id="from"/>
-            <div id=user_login>
+            <div id="user_login">
                 <dl>
-                    <dd id=user_top>
+                    <dd id="user_top">
                         <ul>
-                            <li class=user_top_l></li>
-                            <li class=user_top_c></li>
-                            <li class=user_top_r>
+                            <li class="user_top_l"></li>
+                            <li class="user_top_c"></li>
+                            <li class="user_top_r">
                                 <img width="142" height="39" src="${base}static/plug/ace/assets/avatars/logo.jpg" />
                             </li>
                         </ul>
                     </dd>
-                    <dd id=user_main>
+                    <dd id="user_main">
                         <ul>
-                            <li class=user_main_l></li>
-                            <li class=user_main_c>
+                            <li class="user_main_l"></li>
+                            <li class="user_main_c">
                                 <div class=user_main_box>
                                     <ul>
-                                        <li class=user_main_text>用户名：</li>
-                                        <li class=user_main_input>
-                                            <input class=txtusernamecssclass id=txtusername maxlength=20 name="username" placeholder="請輸入用戶名"> 
+                                        <li class="user_main_text">用户名：</li>
+                                        <li class="user_main_input">
+                                            <input class="txtusernamecssclass" id="txtusername" maxlength=20 name="username" placeholder="请输入用户名" /> 
                                         </li>
                                     </ul> 
                                     <ul> 
-                                        <li class=user_main_text>密码： </li>
-                                        <li class=user_main_input>
-                                            <input type="password" class=txtpasswordcssclass id=txtusername maxlength=20 name="password" placeholder="請輸入密碼">
+                                        <li class="user_main_text">密码：</li>
+                                        <li class="user_main_input">
+                                            <input type="password" class=txtpasswordcssclass id=txtusername maxlength=20 name="password" placeholder="请输入密码" />
                                         </li>
-                                    </ul>
+                                    </ul>   
                                     <ul>
-                                      <li class=user_main_text></li>
-                                      <li class=user_main_input></li>
-                                    </ul>
+                                        <li>
+                                            <a href="search.jhtml">公共查询入口</a>
+                                        </li>
+                                    </ul>                                 
                                 </div>
                             </li>
-                            <li class=user_main_r><input class=ibtnentercssclass id=ibtnenter style="border-top-width: 0px; border-left-width: 0px; border-bottom-width: 0px; border-right-width: 0px"type=image src="${base}static/images/login/user_botton.gif" name=ibtnenter></li>
+                            <li class=user_main_r>
+                                <input class="ibtnentercssclass" id="ibtnenter" style="border-top-width: 0px; border-left-width: 0px; border-bottom-width: 0px; border-right-width: 0px" type="image" src="${base}static/images/login/user_botton.gif" name="ibtnenter" />
+                            </li>
                         </ul>
-                    </dd>
-                    <dd id=user_bottom>
-                        <ul>
-                            <li class=user_bottom_l></li>
-                            <li class=user_bottom_c></li>
-                            <li class=user_bottom_r></li>
-                        </ul>
-                    </dd>
+                    </dd>                    
                 </dl>
             </div>
         </form>

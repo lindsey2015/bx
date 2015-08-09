@@ -6,6 +6,7 @@ import cn.edu.xmut.modules.catagory.bean.Catagory;
 import cn.edu.xmut.modules.catagory.service.CatagoryService;
 import cn.edu.xmut.modules.product.bean.Product;
 import cn.edu.xmut.modules.product.service.ProductService;
+import org.apache.commons.collections.MapUtils;
 import org.joda.time.DateTime;
 
 import cn.edu.xmut.core.persistence.Page;
@@ -118,7 +119,10 @@ public class BdInfoServiceImpl implements BdInfoService {
     @Override
     public BdInfo getByOneField(String fieldName, Object fieldValue) {
         String sql = "select * from TB_BD_INFO where " + fieldName + " = ?";
-        return (BdInfo) bdInfoDao.getBySql(sql, BdInfo.class, fieldValue);
+        BdInfo bdInfo = (BdInfo) bdInfoDao.getBySql(sql, BdInfo.class, fieldValue);
+        List<InsuredUser> insuredUserList = insuredUserService.findByOneFieldOrderBy("bd_id", bdInfo.getId(), "name");
+        bdInfo.setInsuredUserList(insuredUserList);
+        return bdInfo;
     }
 
     @Override
@@ -232,29 +236,50 @@ public class BdInfoServiceImpl implements BdInfoService {
     }
 
     @Override
+    public BdInfo getByBdNoAndInsuredUserName(String bdNo, String insuredUserName) {
+        String bdId = bdInfoDao.getIdByBdNoAndInsuredUserName(bdNo, insuredUserName);
+        BdInfo bdInfo = bdInfoDao.findOne(bdId);
+        InsuredUser insuredUser = insuredUserService.getByTwoFields(InsuredUser.FieldOfInsured.BD_ID.name(), bdId,
+                InsuredUser.FieldOfInsured.NAME.name(), insuredUserName);
+        Double fee = getFee(bdInfo, insuredUser);
+        bdInfo.setTotal(fee);
+        return bdInfo;
+    }
+
+    @Override
     public double getActualTotalFee(BdInfo bdInfo) {
         List<InsuredUser> insuredUserList = bdInfo.getInsuredUserList();
         if (CollectionUtils.isEmpty(insuredUserList)) {
             return 0;
         }
-        Map<AgeGroup, Double> ageGroupFeeMap = ageGroupService.getAgeGroupFee(bdInfo.getProduct().getId(), bdInfo.getDays());
-        DateTime startDate = DateTime.parse(bdInfo.getStartDay(), DateTimeFormat.forPattern("yyyy-MM-dd"));
         double total = 0;
         for (InsuredUser insuredUser : insuredUserList) {
-            DateTime birthday = DateTime.parse(insuredUser.getBirthday(), DateTimeFormat.forPattern("yyyyMMdd"));
-            int age = Years.yearsBetween(birthday, startDate).getYears();
-            total += getFee(ageGroupFeeMap, age);
+            total += getFee(bdInfo, insuredUser);
         }
         return total;
     }
 
-    private double getFee(Map<AgeGroup, Double> ageGroupFeeMap, int age) {
+    private double getFee(BdInfo bdInfo, InsuredUser insuredUser) {
+        if (bdInfo == null || insuredUser == null) {
+            return 0.0;
+        }
+        Map<AgeGroup, Double> ageGroupFeeMap = ageGroupService.getAgeGroupFee(bdInfo.getProduct().getId(), bdInfo.getDays());
+        if (MapUtils.isEmpty(ageGroupFeeMap)) {
+            return 0.0;
+        }
+        int age = getAge(bdInfo.getStartDay(), insuredUser.getBirthday());
         for (AgeGroup ageGroup : ageGroupFeeMap.keySet()) {
             if (ageGroup.getMinAge() <= age && age <= ageGroup.getMaxAge()) {
                 return ageGroupFeeMap.get(ageGroup);
             }
         }
         return 0.0;
+    }
+
+    private int getAge(String startDay, String birthday) {
+        DateTime birthdate = DateTime.parse(birthday, DateTimeFormat.forPattern("yyyyMMdd"));
+        DateTime startDate = DateTime.parse(startDay, DateTimeFormat.forPattern("yyyy-MM-dd"));
+        return Years.yearsBetween(birthdate, startDate).getYears();
     }
 
     @Override

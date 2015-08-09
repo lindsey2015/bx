@@ -21,6 +21,14 @@ public interface BdInfoDao extends BdInfoDaoCustom, CrudRepository<BdInfo, Strin
     @Query("select max(A.no) from BdInfo A")
     public Integer getMax();
     // 用户自定义结束，请不要修改以下内容
+
+    @Query("select bd.id \n" +
+            "from BdInfo bd, \n" +
+            "InsuredUser u \n" +
+            "where bd.id = u.bdId \n" +
+            "and bd.bdNo = :bdNo \n" +
+            "and u.name = :insuredUserName")
+    public String getIdByBdNoAndInsuredUserName(@Param("bdNo") String bdNo, @Param("insuredUserName") String insuredUserName);
 }
 
 interface BdInfoDaoCustom extends BaseDao<BdInfo> {

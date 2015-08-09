@@ -102,4 +102,10 @@ public class BdInfoServiceImplTest {
         String s = String.format("%%%s%%", "test");
         Assert.assertEquals("%test%", s);
     }
+
+    @Test
+    public void testGetByBdNoAndInsuredUserName() {
+        BdInfo bdInfo = bdInfoService.getByBdNoAndInsuredUserName("AXIMC01E0615B000156E", "程海桐");
+        Assert.assertNotNull(bdInfo);
+    }
 }
