@@ -134,9 +134,10 @@ keystore.jks
 ### maven ###
 target
 classes
-#lib
+lib
 
 ### tomcat ###
 temp
 logs
 webapps
+upload

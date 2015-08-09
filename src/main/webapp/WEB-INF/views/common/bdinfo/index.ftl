@@ -16,11 +16,11 @@
 						<a href="javascript:void(0);">保单管理</a>
 					</li>
 					<li class="active">
-						<#if RequestParameters.status=="1">
+						<#if RequestParameters.status! == "1">
 							暂存保单
-						<#elseif RequestParameters.status=="2">
+						<#elseif RequestParameters.status! == "2">
 			               	已提交保单
-						<#elseif RequestParameters.status=="3">
+						<#elseif RequestParameters.status! == "3">
 						    已通过保单
 						</#if>
 					 </li>
@@ -30,14 +30,14 @@
 			<div class="page-content">
 	         	<@action uri="pBdInfopWeb!pageByStatusSearchParam" nickname='bdinfos'/>
 				<!-- <@toJson data=bdinfos encode='false'/> --> 
+				<input type="hidden" name="status" value="${RequestParameters.status!}" />
 
 				<div class="row">
 					<div class="col-xs-12">
 						<div class="row"style="height:35px">								
 							<div class="col-xs-3 ">
 								<div class="nav-search" id="nav-search">
-								    <form class="form-search-bdno" method="post" action="common/bdinfo.jhtml">
-										<input type="hidden" name="status" <#if RequestParameters.status?exists> value="${RequestParameters.status}" </#if>>
+								    <form class="form-search-bdno" method="post" action="common/bdinfo.jhtml?status=${RequestParameters.status!}">
 										<span class="input-icon">
 											<input type="text" placeholder="搜投保单号" class="nav-search-input" name="searchParam" value="${bdinfos.data.searchParam!}" autocomplete="off" />
 											<i class="icon-search nav-search-icon"></i>
@@ -48,8 +48,7 @@
 							</div>
 							<div class="col-xs-8 col-xs-offset-4">
 								<div class="nav-search" id="nav-search">
-						    		<form class="form-search-day" method="post" action="common/bdinfo.jhtml">
-										<input type="hidden" name="status" <#if RequestParameters.status?exists> value="${RequestParameters.status}" </#if>>
+						    		<form class="form-search-day" method="post" action="common/bdinfo.jhtml?status=${RequestParameters.status!}">
 										<span class="input-icon">
 											<input type="text" placeholder="开始投保日期" class="nav-search-input" id="startTime"  name="startTime" value="${bdinfos.data.startTime!}" autocomplete="off" />
 											<img src="static/plug/My97DatePicker/skin/datePicker.gif" onClick="WdatePicker({skin:'whyGreen',el:'startTime'})">
@@ -116,9 +115,7 @@
 	                                     </#list> 
 		                            </table>	                                        
 						            <form id="listForm" action="common/bdinfo.jhtml" method="get">
-							           	<#if RequestParameters.status?exists>
-							        		<input type="hidden" value="${RequestParameters.status}" name="status"/>
-						    		    </#if>
+						            	<input type="hidden" name="status" value="${RequestParameters.status!}" />
 						    		    <input type="hidden" value="${bdinfos.data.searchParam!}" name="searchParam"/>
 						    		    <input type="hidden" value="${bdinfos.data.startTime!}" name="startTime"/>
 						    		    <input type="hidden" value="${bdinfos.data.endTime!}" name="endTime"/>
